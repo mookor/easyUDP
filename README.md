@@ -1,6 +1,6 @@
 # Easy UDP
 
-Easy UDP is a Python package that simplifies UDP communication. It provides convenient classes for UDP client and server implementations.
+Easy UDP is a Python package that simplifies UDP communication. It provides convenient classes for UDP Sender and Receiver implementations.
 
 ## Installation
 
