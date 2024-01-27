@@ -1,3 +1,5 @@
 *pycache*
 venv/
 *.egg*
+build/
+dist/
