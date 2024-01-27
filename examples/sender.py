@@ -1,4 +1,4 @@
-from easyudp_sender import UDPSender
+from easy_udp import UDPSender
 import numpy as np
 
 # Create UDP sender instance

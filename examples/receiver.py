@@ -1,4 +1,4 @@
-from easyudp_receiver import UDPReceiver
+from easy_udp import UDPReceiver
 
 # Create UDP receiver instance
 udp_receiver = UDPReceiver(host="localhost", port=12345, timeout=1.0)

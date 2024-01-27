@@ -18,9 +18,9 @@ Usage:
 Author: [Andrey Mazko] https://github.com/mookor
 """
 
-from easyudp import EasyUDP
+from easy_udp import EasyUDP
+from easy_udp import UDPSendException
 import pickle
-from exceptions import *
 from typing import Union
 from numpy import ndarray
 

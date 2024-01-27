@@ -17,9 +17,9 @@ Usage:
 Author: [Andrey Mazko] https://github.com/mookor
 """
 
-from easyudp import EasyUDP
+from easy_udp import EasyUDP
+from easy_udp import UDPSendException, UDPTypeException
 import numpy as np
-from exceptions import UDPSendException, UDPTypeException
 import pickle
 import time
 
