@@ -23,7 +23,7 @@ print("Sending: [1, 2, 3]")
 udp_sender.send(np.array([1, 2, 3]))
 
 print("Sending: Hello, World!")
-udp_sender.send(np.array("Hello, World!"))
+udp_sender.send("Hello, World!")
 
 ```
 
