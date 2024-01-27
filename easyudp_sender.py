@@ -23,6 +23,7 @@ from exceptions import UDPSendException, UDPTypeException
 import pickle
 import time
 
+
 class UDPSender(EasyUDP):
     def __init__(self, host: str, port: int, send_pause: float = 0.1) -> None:
         """
@@ -67,7 +68,7 @@ class UDPSender(EasyUDP):
         number_bytes = pickle.dumps(message)
         if byte_size > 1024:
             raise UDPSendException("UDP sender only supports integers up to 1024 bytes")
-        
+
         self.socket.sendto(number_bytes, (self.host, self.port))
 
     def __send_fragments(self, message, length) -> None:
@@ -82,7 +83,7 @@ class UDPSender(EasyUDP):
 
         fragment_size = 1024
         for i in range(0, length, fragment_size):
-            fragment = message[i:i+fragment_size]
+            fragment = message[i : i + fragment_size]
             pickled_fragment = pickle.dumps(fragment)
             self.socket.sendto(pickled_fragment, (self.host, self.port))
 
@@ -108,7 +109,9 @@ class UDPSender(EasyUDP):
             self.__send_integer(message)
 
         else:
-            raise UDPSendException("UDP sender only supports numpy arrays, strings, and integers")
+            raise UDPSendException(
+                "UDP sender only supports numpy arrays, strings, and integers"
+            )
         time.sleep(self.send_pause)
 
     def receive(self):
@@ -120,4 +123,6 @@ class UDPSender(EasyUDP):
 
         """
 
-        raise UDPTypeException("UDP sender does not support receiving messages, use UDPClient instead")
+        raise UDPTypeException(
+            "UDP sender does not support receiving messages, use UDPClient instead"
+        )

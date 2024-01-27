@@ -6,7 +6,6 @@ Classes:
 
 Usage:
     from easyudp_receiver import UDPReceiver
-    from exceptions import *
 
     # Create UDP receiver instance
     udp_receiver = UDPReceiver(host='localhost', port=12345, timeout=5.0)
@@ -24,6 +23,8 @@ import pickle
 from exceptions import *
 from typing import Union
 from numpy import ndarray
+
+
 class UDPReceiver(EasyUDP):
     def __init__(self, host: str, port: int, timeout: float) -> None:
         """
@@ -46,15 +47,15 @@ class UDPReceiver(EasyUDP):
         Raise UDPSendException when the UDP Client cannot send.
         """
         raise UDPSendException("UDP Client cannot send")
-    
+
     def __receive_fragments(self) -> Union[ndarray, str, int]:
         """
         Receive fragments from a socket and concatenate them into a single data array.
-        
+
         Returns:
             Union[ndarray, str, int]: The assembled array if data is received, otherwise returns None.
         """
-        received_data = b''
+        received_data = b""
         received_flag = False
         while True:
             try:
@@ -67,7 +68,6 @@ class UDPReceiver(EasyUDP):
             array = pickle.loads(received_data)
             return array
 
-
     def receive(self) -> Union[ndarray, str, int]:
         """
         Receive data from the socket.
@@ -76,4 +76,3 @@ class UDPReceiver(EasyUDP):
             Union[ndarray, str, int, None]: The assembled array if data is received, otherwise returns None.
         """
         return self.__receive_fragments()
-
