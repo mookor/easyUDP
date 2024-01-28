@@ -23,7 +23,9 @@ from easy_udp import UDPSendException
 import pickle
 from typing import Union
 from numpy import ndarray
-
+import socket
+import errno
+import numpy as np
 
 class UDPReceiver(EasyUDP):
     def __init__(self, host: str, port: int, timeout: float) -> None:
@@ -41,6 +43,7 @@ class UDPReceiver(EasyUDP):
         self.port = port
         self.socket.bind((self.host, self.port))
         self.socket.settimeout(timeout)
+        self.socket.setblocking(False) 
 
     def send(self):
         """
@@ -55,17 +58,22 @@ class UDPReceiver(EasyUDP):
         Returns:
             Union[ndarray, str, int]: The assembled array if data is received, otherwise returns None.
         """
-        received_data = b""
         received_flag = False
+        received_data = []
         while True:
             try:
-                fragment, _ = self.socket.recvfrom(1024)
-                received_data += fragment
+                fragment, _ = self.socket.recvfrom(2048)
+                if not fragment:
+                    break
+                received_data.append(fragment)
                 received_flag = True
-            except:
-                break
+            except socket.error as e:
+                if e.errno == errno.EWOULDBLOCK or e.errno == errno.EAGAIN:
+                    continue
+                else:
+                    break
         if received_flag:
-            array = pickle.loads(received_data)
+            array = np.concatenate([pickle.loads(fragment) for fragment in received_data])
             return array
 
     def receive(self) -> Union[ndarray, str, int]:

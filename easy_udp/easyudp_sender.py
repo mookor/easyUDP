@@ -86,7 +86,7 @@ class UDPSender(EasyUDP):
             fragment = message[i : i + fragment_size]
             pickled_fragment = pickle.dumps(fragment)
             self.socket.sendto(pickled_fragment, (self.host, self.port))
-
+        self.socket.sendto(b"", (self.host, self.port))
     def send(self, message) -> None:
         """
         Send a message through UDP.
@@ -112,7 +112,7 @@ class UDPSender(EasyUDP):
             raise UDPSendException(
                 "UDP sender only supports numpy arrays, strings, and integers"
             )
-        time.sleep(self.send_pause)
+        # time.sleep(self.send_pause)
 
     def receive(self):
         """
