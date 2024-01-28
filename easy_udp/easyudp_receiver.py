@@ -27,6 +27,7 @@ import socket
 import errno
 import numpy as np
 
+
 class UDPReceiver(EasyUDP):
     def __init__(self, host: str, port: int, timeout: float) -> None:
         """
@@ -42,8 +43,7 @@ class UDPReceiver(EasyUDP):
         self.host = host
         self.port = port
         self.socket.bind((self.host, self.port))
-        self.socket.settimeout(timeout)
-        self.socket.setblocking(False) 
+        self.socket.setblocking(False)
 
     def send(self):
         """
@@ -60,21 +60,35 @@ class UDPReceiver(EasyUDP):
         """
         received_flag = False
         received_data = []
+        dtype = None
         while True:
             try:
-                fragment, _ = self.socket.recvfrom(2048)
-                if not fragment:
+                fragment, _ = self.socket.recvfrom(4500)
+                if b"Meta::" in fragment:
+                    dtype = fragment.replace(b"Meta::", b"")
                     break
+
                 received_data.append(fragment)
                 received_flag = True
+
             except socket.error as e:
                 if e.errno == errno.EWOULDBLOCK or e.errno == errno.EAGAIN:
                     continue
                 else:
                     break
+
         if received_flag:
-            array = np.concatenate([pickle.loads(fragment) for fragment in received_data])
-            return array
+            if dtype == b"ndarray":
+                array = np.concatenate(
+                    [pickle.loads(fragment) for fragment in received_data]
+                )
+                return array
+
+            elif dtype == b"str":
+                return "".join([pickle.loads(fragment) for fragment in received_data])
+
+            elif dtype == b"int":
+                return pickle.loads(received_data[0])
 
     def receive(self) -> Union[ndarray, str, int]:
         """
