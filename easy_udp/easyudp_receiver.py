@@ -29,7 +29,7 @@ import numpy as np
 
 
 class UDPReceiver(EasyUDP):
-    def __init__(self, host: str, port: int, timeout: float) -> None:
+    def __init__(self, host: str, port: int) -> None:
         """
         Initialize a UDPReceiver instance.
 

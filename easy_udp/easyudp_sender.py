@@ -25,7 +25,7 @@ from typing import Union
 
 
 class UDPSender(EasyUDP):
-    def __init__(self, host: str, port: int, send_pause: float = 0.1) -> None:
+    def __init__(self, host: str, port: int) -> None:
         """
         Initialize a UDPSender instance.
 
@@ -39,7 +39,6 @@ class UDPSender(EasyUDP):
         super().__init__()
         self.host = host
         self.port = port
-        self.send_pause = send_pause
 
     def _send_metadata(self, message_type: Union[ndarray, str, int]) -> None:
         """

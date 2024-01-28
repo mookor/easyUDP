@@ -2,7 +2,7 @@ from easy_udp import UDPReceiver
 import numpy as np
 
 # Create UDP receiver instance
-udp_receiver = UDPReceiver(host="localhost", port=12345, timeout=1.0)
+udp_receiver = UDPReceiver(host="localhost", port=12345)
 
 # receive data
 while True:

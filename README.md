@@ -16,7 +16,7 @@ from easy_udp import UDPSender
 import numpy as np
 
 # Create UDP sender instance
-udp_sender = UDPSender(host="localhost", port=12345, send_pause=0.000001)
+udp_sender = UDPSender(host="localhost", port=12345)
 
 # Sending data
 print("Sending: 123")
@@ -37,7 +37,7 @@ from easy_udp import UDPReceiver
 import numpy as np
 
 # Create UDP receiver instance
-udp_receiver = UDPReceiver(host="localhost", port=12345, timeout=1.0)
+udp_receiver = UDPReceiver(host="localhost", port=12345)
 
 # receive data
 while True:

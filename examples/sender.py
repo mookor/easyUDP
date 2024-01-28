@@ -3,7 +3,7 @@ import numpy as np
 import time
 
 # Create UDP sender instance
-udp_sender = UDPSender(host="localhost", port=12345, send_pause=0.000001)
+udp_sender = UDPSender(host="localhost", port=12345)
 
 # Sending data
 print("Sending: 123")
