@@ -51,7 +51,7 @@ class UDPReceiver(EasyUDP):
         """
         raise UDPSendException("UDP Client cannot send")
 
-    def __receive_fragments(self) -> Union[ndarray, str, int]:
+    def _receive_fragments(self) -> Union[ndarray, str, int]:
         """
         Receive fragments from a socket and concatenate them into a single data array.
 
@@ -97,4 +97,4 @@ class UDPReceiver(EasyUDP):
         Returns:
             Union[ndarray, str, int, None]: The assembled array if data is received, otherwise returns None.
         """
-        return self.__receive_fragments()
+        return self._receive_fragments()
